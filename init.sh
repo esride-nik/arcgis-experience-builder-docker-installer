@@ -6,7 +6,7 @@ if [ ! -d "$DOWNLOAD_PATH" ]; then
   echo "Downloading ZIP file..."
   curl -L $ZIP_URL -o $DOWNLOAD_PATH/downloaded.zip
   echo "Unzipping file..."
-  unzip $DOWNLOAD_PATH/downloaded.zip -d $DOWNLOAD_PATH
+  unzip $DOWNLOAD_PATH/downloaded.zip -d $EXB_PATH
 fi
 
 # Install dependencies and start server
