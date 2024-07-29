@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# Ensure the download and extraction paths are set
+DOWNLOAD_PATH=${DOWNLOAD_PATH:-/usr/src/app/downloaded}
+EXB_PATH=${EXB_PATH:-/usr/src/app/extracted}
+
+# Create the download and extraction directories if they do not exist
+mkdir -p $DOWNLOAD_PATH
+mkdir -p $EXB_PATH
+
 # Download and unzip the file if it doesn't already exist
 if [ ! -d "$DOWNLOAD_PATH" ]; then
   mkdir -p $DOWNLOAD_PATH
@@ -12,7 +20,7 @@ fi
 # Install dependencies and start server
 
 # Set working directory for server
-cd /usr/src/app/server
+cd /usr/src/app/ArcGISExperienceBuilder/server
 
 # Install server dependencies if node_modules does not exist
 if [ ! -d "node_modules" ]; then
@@ -21,7 +29,7 @@ if [ ! -d "node_modules" ]; then
 fi
 
 # Set working directory for client
-cd /usr/src/app/client
+cd /usr/src/app/ArcGISExperienceBuilder/client
 
 # Install client dependencies if node_modules does not exist
 if [ ! -d "node_modules" ]; then
@@ -30,10 +38,10 @@ if [ ! -d "node_modules" ]; then
 fi
 
 # Start both processes
-cd /usr/src/app/server
+cd /usr/src/app/ArcGISExperienceBuilder/server
 npm start &
 
-cd /usr/src/app/client
+cd /usr/src/app/ArcGISExperienceBuilder/client
 npm start
 
 # Wait for background processes
