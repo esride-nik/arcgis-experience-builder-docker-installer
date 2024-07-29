@@ -1,17 +1,11 @@
 # Use the official Node.js image as a base
 FROM node:20
 
-# Set the working directory for the server
-WORKDIR /usr/src/app/server
+# Install curl and unzip
+RUN apt-get update && apt-get install -y curl unzip && rm -rf /var/lib/apt/lists/*
 
-# Copy server package.json and package-lock.json
-COPY server/package*.json ./
-
-# Set the working directory for the client
-WORKDIR /usr/src/app/client
-
-# Copy client package.json and package-lock.json
-COPY client/package*.json ./
+# Set the working directory
+WORKDIR /usr/src/app
 
 # Copy the rest of the application files
 COPY . /usr/src/app

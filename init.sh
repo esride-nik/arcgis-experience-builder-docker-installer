@@ -1,5 +1,16 @@
 #!/bin/sh
 
+# Download and unzip the file if it doesn't already exist
+if [ ! -d "$DOWNLOAD_PATH" ]; then
+  mkdir -p $DOWNLOAD_PATH
+  echo "Downloading ZIP file..."
+  curl -L $ZIP_URL -o $DOWNLOAD_PATH/downloaded.zip
+  echo "Unzipping file..."
+  unzip $DOWNLOAD_PATH/downloaded.zip -d $DOWNLOAD_PATH
+fi
+
+# Install dependencies and start server
+
 # Set working directory for server
 cd /usr/src/app/server
 
