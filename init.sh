@@ -8,40 +8,50 @@ EXB_PATH=${EXB_PATH:-/usr/src/app/extracted}
 mkdir -p $DOWNLOAD_PATH
 mkdir -p $EXB_PATH
 
-# Download and unzip the file if it doesn't already exist
-if [ ! -d "$DOWNLOAD_PATH" ]; then
-  mkdir -p $DOWNLOAD_PATH
+# Download and unzip the file if it hasn't been extracted already
+if [ ! -d "$EXB_PATH" ] || [ ! "$(ls -A $EXB_PATH)" ]; then
   echo "Downloading ZIP file..."
-  curl -L $ZIP_URL -o $DOWNLOAD_PATH/downloaded.zip
-  echo "Unzipping file..."
-  unzip $DOWNLOAD_PATH/downloaded.zip -d $EXB_PATH
+  if curl -L $ZIP_URL -o $DOWNLOAD_PATH/downloaded.zip; then
+    echo "Unzipping file..."
+    if unzip $DOWNLOAD_PATH/downloaded.zip -d $EXB_PATH; then
+      echo "Unzipping completed."
+    else
+      echo "Failed to unzip file."
+      exit 1
+    fi
+  else
+    echo "Failed to download ZIP file."
+    exit 1
+  fi
+else
+  echo "Files already extracted."
 fi
 
 # Install dependencies and start server
 
 # Set working directory for server
-cd /usr/src/app/ArcGISExperienceBuilder/server
+cd /usr/src/app/server
 
 # Install server dependencies if node_modules does not exist
 if [ ! -d "node_modules" ]; then
   echo "Installing server dependencies..."
-  npm ci
+  npm install
 fi
 
 # Set working directory for client
-cd /usr/src/app/ArcGISExperienceBuilder/client
+cd /usr/src/app/client
 
 # Install client dependencies if node_modules does not exist
 if [ ! -d "node_modules" ]; then
   echo "Installing client dependencies..."
-  npm ci
+  npm install
 fi
 
 # Start both processes
-cd /usr/src/app/ArcGISExperienceBuilder/server
+cd /usr/src/app/server
 npm start &
 
-cd /usr/src/app/ArcGISExperienceBuilder/client
+cd /usr/src/app/client
 npm start
 
 # Wait for background processes
