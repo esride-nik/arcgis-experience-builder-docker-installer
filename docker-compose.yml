@@ -1,0 +1,11 @@
+services:
+  webapp:
+    build: .
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    volumes:
+      - ${CLIENT_PATH}:/usr/src/app/client
+      - ${SERVER_PATH}:/usr/src/app/server
+    environment:
+      - NODE_ENV=development
