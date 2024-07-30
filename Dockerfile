@@ -1,8 +1,8 @@
 # Use the official Node.js image as a base
 FROM node:20
 
-# Install curl and unzip
-RUN apt-get update && apt-get install -y curl unzip && rm -rf /var/lib/apt/lists/*
+# Install curl, unzip, and jq
+RUN apt-get update && apt-get install -y curl unzip jq && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory
 WORKDIR /usr/src/app
