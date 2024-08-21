@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Ensure the download and extraction paths are set
-DOWNLOAD_PATH=${DOWNLOAD_PATH:-/usr/src/app/downloaded}
+DOWNLOAD_PATH=${EXB_PATH/downloaded:-/usr/src/app/downloaded}
 EXB_PATH=${EXB_PATH:-/usr/src/app/extracted}
 
 # Create the download and extraction directories if they do not exist
@@ -40,7 +40,7 @@ fi
 # Install dependencies and start server
 
 # Set working directory for server
-cd /usr/src/app/server
+cd $EXB_PATH/server
 
 # Install server dependencies if node_modules does not exist
 if [ ! -d "node_modules" ]; then
@@ -49,7 +49,7 @@ if [ ! -d "node_modules" ]; then
 fi
 
 # Set working directory for client
-cd /usr/src/app/client
+cd $EXB_PATH/client
 
 # Install client dependencies if node_modules does not exist
 if [ ! -d "node_modules" ]; then
@@ -57,11 +57,15 @@ if [ ! -d "node_modules" ]; then
   npm install
 fi
 
+# Clean up the download folder
+echo "Cleaning up the download folder..."
+rm -rf $DOWNLOAD_PATH
+
 # Start both processes
-cd /usr/src/app/server
+cd $EXB_PATH/server
 npm start &
 
-cd /usr/src/app/client
+cd $EXB_PATH/client
 npm start
 
 # Wait for background processes
