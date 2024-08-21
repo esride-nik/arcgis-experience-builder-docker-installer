@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # Ensure the download and extraction paths are set
-DOWNLOAD_PATH=${EXB_PATH/downloaded:-/usr/src/app/downloaded}
-EXB_PATH=${EXB_PATH:-/usr/src/app/extracted}
+DOWNLOAD_PATH=${ROOT_PATH/downloaded:-/usr/src/app/downloaded}
+EXB_PATH=${ROOT_PATH:-/usr/src/app/extracted}
 
 # Create the download and extraction directories if they do not exist
 mkdir -p $DOWNLOAD_PATH

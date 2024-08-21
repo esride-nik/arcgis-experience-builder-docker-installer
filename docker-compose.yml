@@ -5,7 +5,7 @@ services:
       - "3000:3000"
       - "3001:3001"
     volumes:
-      - ${EXB_PATH}:/usr/src/app
+      - ${ROOT_PATH}:/usr/src/app
     environment:
       - ZIP_URL=${ZIP_URL}
       - NODE_ENV=development
