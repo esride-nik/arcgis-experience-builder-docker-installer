@@ -8,5 +8,4 @@ services:
       - ${EXB_PATH}:/usr/src/app
     environment:
       - ZIP_URL=${ZIP_URL}
-      - DOWNLOAD_PATH=${DOWNLOAD_PATH}
       - NODE_ENV=development
