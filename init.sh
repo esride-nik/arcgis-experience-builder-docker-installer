@@ -40,7 +40,7 @@ fi
 # Install dependencies and start server
 
 # Set working directory for server
-cd $EXB_PATH/server
+cd $EXB_PATH/ArcGISExperienceBuilder/server
 
 # Install server dependencies if node_modules does not exist
 if [ ! -d "node_modules" ]; then
@@ -49,7 +49,7 @@ if [ ! -d "node_modules" ]; then
 fi
 
 # Set working directory for client
-cd $EXB_PATH/client
+cd $EXB_PATH/ArcGISExperienceBuilder/client
 
 # Install client dependencies if node_modules does not exist
 if [ ! -d "node_modules" ]; then
@@ -62,10 +62,10 @@ echo "Cleaning up the download folder..."
 rm -rf $DOWNLOAD_PATH
 
 # Start both processes
-cd $EXB_PATH/server
+cd $EXB_PATH/ArcGISExperienceBuilder/server
 npm start &
 
-cd $EXB_PATH/client
+cd $EXB_PATH/ArcGISExperienceBuilder/client
 npm start
 
 # Wait for background processes
