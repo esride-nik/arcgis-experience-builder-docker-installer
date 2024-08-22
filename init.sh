@@ -4,6 +4,9 @@
 DOWNLOAD_PATH=${EXB_PATH/downloaded:-/usr/src/app/downloaded}
 EXB_PATH=${EXB_PATH:-/usr/src/app/extracted}
 
+echo "DOWNLOAD_PATH is set to: $DOWNLOAD_PATH"
+echo "EXTRACT_PATH is set to: $EXTRACT_PATH"
+
 # Create the download and extraction directories if they do not exist
 mkdir -p $DOWNLOAD_PATH
 mkdir -p $EXB_PATH
@@ -46,6 +49,7 @@ cd $EXB_PATH/ArcGISExperienceBuilder/server
 if [ ! -d "node_modules" ]; then
   echo "Installing server dependencies..."
   npm install
+  npm audit fix
 fi
 
 # Set working directory for client
@@ -55,6 +59,7 @@ cd $EXB_PATH/ArcGISExperienceBuilder/client
 if [ ! -d "node_modules" ]; then
   echo "Installing client dependencies..."
   npm install
+  npm audit fix
 fi
 
 # Clean up the download folder
