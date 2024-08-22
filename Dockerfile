@@ -1,5 +1,5 @@
-# Use the official Node.js image as a base
-FROM node:20
+# Use the official Node.js slim image as a base
+FROM node:20-slim
 
 # Install curl, unzip, and jq
 RUN apt-get update && apt-get install -y curl unzip jq && rm -rf /var/lib/apt/lists/*
