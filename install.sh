@@ -4,6 +4,7 @@
 set -o allexport; source .env; set +o allexport
 
 # Set download and extraction paths
+JSON_URL="${EXB_URL}?f=json&folder=${EXB_URL_FOLDER}"
 DOWNLOAD_PATH="${INSTALL_PATH}/downloaded"
 EXTRACT_PATH="${INSTALL_PATH}/ArcGISExperienceBuilder"
 
@@ -15,19 +16,19 @@ mkdir -p "$DOWNLOAD_PATH"
 mkdir -p "$EXTRACT_PATH"
 
 # Fetch the actual ZIP URL from the JSON
-echo "Fetching actual ZIP file URL from JSON..."
-ACTUAL_ZIP_URL=$(curl -s $ZIP_URL | jq -r '.url')
+echo "Fetching ZIP file URL from URL $JSON_URL"
+ZIP_URL=$(curl -s $JSON_URL | jq -r '.url')
 
 # Check if download was successful
-if [ -z "$ACTUAL_ZIP_URL" ]; then
+if [ -z "$ZIP_URL" ]; then
   echo "Failed to fetch actual ZIP file URL."
   exit 1
 fi
 
 # Download and unzip the file if it hasn't been extracted already
 if [ ! -d "$EXTRACT_PATH" ] || [ ! "$(ls -A $EXTRACT_PATH)" ]; then
-  echo "Downloading ZIP file from $ACTUAL_ZIP_URL..."
-  if curl -L "$ACTUAL_ZIP_URL" -o "$DOWNLOAD_PATH/exb.zip"; then
+  echo "Downloading ZIP file from $ZIP_URL..."
+  if curl -L "$ZIP_URL" -o "$DOWNLOAD_PATH/exb.zip"; then
     echo "Unzipping file..."
     if unzip "$DOWNLOAD_PATH/exb.zip" -d "$EXTRACT_PATH"; then
       echo "Unzipping completed."
