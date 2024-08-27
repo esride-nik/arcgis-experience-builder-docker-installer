@@ -1,32 +1,35 @@
-#!/bin/sh
+#!/bin/bash
 
-# Ensure the download and extraction paths are set
-DOWNLOAD_PATH=${EXB_PATH/downloaded:-/usr/src/app/downloaded}
-EXB_PATH=${EXB_PATH:-/usr/src/app/extracted}
+# Load environment variables from .env file
+set -o allexport; source .env; set +o allexport
+
+# Set download and extraction paths
+DOWNLOAD_PATH="${INSTALL_PATH}/downloaded"
+EXTRACT_PATH="${INSTALL_PATH}/ArcGISExperienceBuilder"
 
 echo "DOWNLOAD_PATH is set to: $DOWNLOAD_PATH"
 echo "EXTRACT_PATH is set to: $EXTRACT_PATH"
 
 # Create the download and extraction directories if they do not exist
-mkdir -p $DOWNLOAD_PATH
-mkdir -p $EXB_PATH
+mkdir -p "$DOWNLOAD_PATH"
+mkdir -p "$EXTRACT_PATH"
 
 # Fetch the actual ZIP URL from the JSON
 echo "Fetching actual ZIP file URL from JSON..."
 ACTUAL_ZIP_URL=$(curl -s $ZIP_URL | jq -r '.url')
 
-# Check if the URL extraction was successful
+# Check if download was successful
 if [ -z "$ACTUAL_ZIP_URL" ]; then
   echo "Failed to fetch actual ZIP file URL."
   exit 1
 fi
 
 # Download and unzip the file if it hasn't been extracted already
-if [ ! -d "$EXB_PATH" ] || [ ! "$(ls -A $EXB_PATH)" ]; then
+if [ ! -d "$EXTRACT_PATH" ] || [ ! "$(ls -A $EXTRACT_PATH)" ]; then
   echo "Downloading ZIP file from $ACTUAL_ZIP_URL..."
-  if curl -L $ACTUAL_ZIP_URL -o $DOWNLOAD_PATH/exb.zip; then
+  if curl -L "$ACTUAL_ZIP_URL" -o "$DOWNLOAD_PATH/exb.zip"; then
     echo "Unzipping file..."
-    if unzip $DOWNLOAD_PATH/exb.zip -d $EXB_PATH; then
+    if unzip "$DOWNLOAD_PATH/exb.zip" -d "$EXTRACT_PATH"; then
       echo "Unzipping completed."
     else
       echo "Failed to unzip file."
@@ -40,22 +43,18 @@ else
   echo "Files already extracted."
 fi
 
-# Install dependencies and start server
-
-# Set working directory for server
-cd $EXB_PATH/ArcGISExperienceBuilder/server
+# Install dependencies
 
 # Install server dependencies if node_modules does not exist
+cd "$EXTRACT_PATH/server"
 if [ ! -d "node_modules" ]; then
   echo "Installing server dependencies..."
   npm install
   npm audit fix
 fi
 
-# Set working directory for client
-cd $EXB_PATH/ArcGISExperienceBuilder/client
-
 # Install client dependencies if node_modules does not exist
+cd "$EXTRACT_PATH/client"
 if [ ! -d "node_modules" ]; then
   echo "Installing client dependencies..."
   npm install
@@ -66,12 +65,4 @@ fi
 echo "Cleaning up the download folder..."
 rm -rf $DOWNLOAD_PATH
 
-# Start both processes
-cd $EXB_PATH/ArcGISExperienceBuilder/server
-npm start &
-
-cd $EXB_PATH/ArcGISExperienceBuilder/client
-npm start
-
-# Wait for background processes
-wait
+echo "Installation completed."

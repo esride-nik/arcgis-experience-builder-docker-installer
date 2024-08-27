@@ -1,22 +1,22 @@
 # Use the official Node.js slim image as a base
 FROM node:20-slim
 
-# Install bash and other necessary tools
-RUN apt-get update && apt-get install -y bash curl unzip jq && rm -rf /var/lib/apt/lists/*
-
 # Set the working directory
 WORKDIR /usr/src/app
 
-# Copy the rest of the application files
-COPY . /usr/src/app
-
-# Copy initialization script
-COPY init.sh /usr/src/app/init.sh
-RUN chmod +x /usr/src/app/init.sh
+# Copy the installed ArcGISExperienceBuilder files into the container
+COPY ./ArcGISExperienceBuilder /usr/src/app/ArcGISExperienceBuilder
 
 # Expose the ports
-EXPOSE 3000
-EXPOSE 3001
+EXPOSE 4000
+EXPOSE 4001
 
-# Run the initialization script using bash
-CMD ["/bin/bash", "/usr/src/app/init.sh"]
+# Set up volumes to expose specific folders
+VOLUME /usr/src/app/ArcGISExperienceBuilder/client
+VOLUME /usr/src/app/ArcGISExperienceBuilder/server/public/apps
+
+# Set the working directory to server
+WORKDIR /usr/src/app/ArcGISExperienceBuilder/server
+
+# Start both processes (server and client)
+CMD ["bash", "-c", "npm start & cd ../client && npm start"]
