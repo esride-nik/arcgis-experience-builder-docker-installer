@@ -20,14 +20,14 @@ The container works work ExB version 1.15 and the [offically recommended Node ve
 
 ## Different approaches
 
-| branch | main | nodeSlimImage | exb_included | dependencies_included |
-| - | - | - | - | - |
-| ExB | downloads and unzips ExB | downloads and unzips ExB | has ExB included, unzipped | has ExB included, unzipped |
-| dependencies | installs dependencies on first run to local drive | installs dependencies on first run to local drive | installs dependencies on first run to local drive | has node_modules included |
-| project files | client and apps folder mapped to local drive | client and apps folder mapped to local drive | client and apps folder mapped to local drive | drive |
-| runtime | runs client and server on ports 3000 and 3001 | runs client and server on ports 3000 and 3001 | runs client and server on ports 3000 and 3001 | 3001 |
-| image size | 1.09 GB (based on node:20 image) | 215.8 MB | ? | ? |
-| initial startup time* | 25 min | 21.5 min until unzipped + 4.5 min for installing node_modules | ? |
+| branch | main | nodeSlimImage |
+| - | - | - |
+| Node image | node:20 | node:20-slim | 
+| project files | client and apps folder mapped to local drive | client and apps folder mapped to local drive |
+| webpack-config & tsconfig | accessible because client folder mapped to local drive | accessible because client folder mapped to local drive |
+| runtime | runs client and server on ports 3000 and 3001 | runs client and server on ports 3000 and 3001 |
+| image size | 1.09 GB (based on node:20 image) | 215.8 MB |
+| initial startup time* | 25 min | 21.5 min until unzipped + 4.5 min for installing node_modules |
 
 <small>* running ``docker-compose up`` on my machine ;)</small>
 
