@@ -5,19 +5,14 @@ set -o allexport; source .env; set +o allexport
 
 # Set download and extraction paths
 JSON_URL="${EXB_URL}?f=json&folder=${EXB_URL_FOLDER}"
-DOWNLOAD_PATH="${INSTALL_PATH}/downloaded"
-EXTRACT_PATH="${INSTALL_PATH}/ArcGISExperienceBuilder"
-
-echo "DOWNLOAD_PATH is set to: $DOWNLOAD_PATH"
-echo "EXTRACT_PATH is set to: $EXTRACT_PATH"
+DOWNLOAD_PATH="./download"
+EXTRACT_PATH="./ArcGISExperienceBuilder"
 
 # Create the download and extraction directories if they do not exist
 mkdir -p "$DOWNLOAD_PATH"
 
 # Fetch the actual ZIP URL from the JSON
 echo "Fetching ZIP file URL from JSON at $JSON_URL"
-JSON_CONTENT="$(curl -s $JSON_URL)"
-echo "JSON content is set to: $JSON_CONTENT" 
 ZIP_URL=$(curl -s $JSON_URL | grep -o '"url":"[^"]*' | cut -d'"' -f4)
 
 echo "ZIP_URL is set to: $ZIP_URL"
@@ -58,10 +53,7 @@ if [ ! -d "node_modules" ]; then
 else
   echo "Server dependencies already installed."
 fi
-
-pwd
-cd "../../../"
-pwd
+cd "../../"
 
 # Wait for background processes to finish
 wait
@@ -75,7 +67,7 @@ if [ ! -d "node_modules" ]; then
 else
   echo "Client dependencies already installed."
 fi
-cd "../../../"
+cd "../../"
 
 # Clean up the download folder
 echo "Cleaning up the download folder..."
