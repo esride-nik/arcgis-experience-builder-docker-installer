@@ -1,8 +1,8 @@
 # Use the official Node.js slim image as a base
 FROM node:20-slim
 
-# Set the working directory inside the container
-WORKDIR /usr/src/app
+# # Set the working directory inside the container
+# WORKDIR /usr/src/app
 
 # Copy the installed ArcGISExperienceBuilder files into the container
 COPY ./ArcGISExperienceBuilder/client /usr/src/app/ArcGISExperienceBuilder/client_template
@@ -16,7 +16,9 @@ EXPOSE 4001
 
 # Necessary volumes are also exposed in the yml file
 
-ENTRYPOINT ["bash", "-c", "cp -r /usr/src/app/ArcGISExperienceBuilder/client_template/* /usr/src/app/ArcGISExperienceBuilder/client && exec \"$@\""]
+# ENTRYPOINT ["bash", "-c", "cp -r /usr/src/app/ArcGISExperienceBuilder/client_template/* /usr/src/app/ArcGISExperienceBuilder/client && exec \"$@\""]
+# ENTRYPOINT ["bash", "-c", "if [ -z \"$(ls -A /usr/src/app/client)\" ]; then cp -r /usr/src/app/ArcGISExperienceBuilder/client_template/* /usr/src/app/client; fi && exec \"$@\""]
+# ENTRYPOINT ["bash", "-c", "mkdir -p /usr/src/app/client && if [ -z \"$(ls -A /usr/src/app/client)\" ]; then cp -r /usr/src/app/ArcGISExperienceBuilder/client_template/* /usr/src/app/client; fi && exec \"$@\""]
 
 # ENTRYPOINT ["/bin/sh", "-c", "\
 #     mkdir -p /usr/src/app/client && \
@@ -26,6 +28,13 @@ ENTRYPOINT ["bash", "-c", "cp -r /usr/src/app/ArcGISExperienceBuilder/client_tem
 #     exec \"$@\" \
 # "]
 
+# Copy initialization script
+COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+RUN chmod +x /usr/src/app/entrypoint.sh
+
+# Use ENTRYPOINT for initializing the container
+ENTRYPOINT ["bash", "/usr/src/app/entrypoint.sh"]
+
 # Start both processes (server and client)
-CMD ["bash", "-c", "cd /usr/src/app/ArcGISExperienceBuilder/server && npm start"]
-# CMD ["bash", "-c", "cd /usr/src/app/ArcGISExperienceBuilder/server && npm start & cd /usr/src/app/ArcGISExperienceBuilder/client && npm start"]
+# CMD ["bash", "-c", "cd /usr/src/app/ArcGISExperienceBuilder/server && npm start"]
+CMD ["bash", "-c", "cd /usr/src/app/ArcGISExperienceBuilder/server && npm start & cd /usr/src/app/ArcGISExperienceBuilder/client && npm start"]
