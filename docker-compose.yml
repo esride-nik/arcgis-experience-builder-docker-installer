@@ -1,11 +1,12 @@
 services:
-  webapp:
+  exb:
     build: .
     ports:
-      - "3000:3000"
-      - "3001:3001"
+      - "4000:4000"
+      - "4001:4001"
     volumes:
-      - ${EXB_PATH}:/usr/src/app
-    environment:
-      - ZIP_URL=${ZIP_URL}
-      - NODE_ENV=development
+      # Volume for the apps directory
+      - ./apps:/usr/src/app/ArcGISExperienceBuilder/server/public/apps
+
+      # Volume for user-added client data
+      - ./client:/usr/src/app/ArcGISExperienceBuilder/client

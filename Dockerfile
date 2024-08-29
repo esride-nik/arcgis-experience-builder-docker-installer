@@ -1,22 +1,24 @@
 # Use the official Node.js slim image as a base
 FROM node:20-slim
 
-# Install bash and other necessary tools
-RUN apt-get update && apt-get install -y bash curl unzip jq && rm -rf /var/lib/apt/lists/*
+# Copy the installed ArcGISExperienceBuilder files into the container
+COPY ./ArcGISExperienceBuilder/client /usr/src/app/ArcGISExperienceBuilder/client_template
+COPY ./ArcGISExperienceBuilder/server /usr/src/app/ArcGISExperienceBuilder/server
+COPY ./ArcGISExperienceBuilder/*.txt ./ArcGISExperienceBuilder/*.json /usr/src/app/ArcGISExperienceBuilder/
+RUN mkdir -p /usr/src/app/ArcGISExperienceBuilder/client
 
-# Set the working directory
-WORKDIR /usr/src/app
+# These ports are exposed in the yml file - this is only for documentation
+EXPOSE 4000
+EXPOSE 4001
 
-# Copy the rest of the application files
-COPY . /usr/src/app
+# Necessary volumes are also exposed in the yml file
 
 # Copy initialization script
-COPY init.sh /usr/src/app/init.sh
-RUN chmod +x /usr/src/app/init.sh
+COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+RUN chmod +x /usr/src/app/entrypoint.sh
 
-# Expose the ports
-EXPOSE 3000
-EXPOSE 3001
+# Use ENTRYPOINT for initializing the container
+ENTRYPOINT ["bash", "/usr/src/app/entrypoint.sh"]
 
-# Run the initialization script using bash
-CMD ["/bin/bash", "/usr/src/app/init.sh"]
+# Start both processes (server and client)
+CMD ["bash", "-c", "cd /usr/src/app/ArcGISExperienceBuilder/server && npm start & cd /usr/src/app/ArcGISExperienceBuilder/client && npm start"]
