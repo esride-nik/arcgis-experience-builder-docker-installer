@@ -1,7 +1,5 @@
-version: '3.8'
-
 services:
-  myapp:
+  exb:
     build: .
     ports:
       - "4000:4000"
@@ -10,15 +8,5 @@ services:
       # Volume for the apps directory
       - ./apps:/usr/src/app/ArcGISExperienceBuilder/server/public/apps
 
-      # Volumes for user-editable configuration files
-      - ./client_tsconfig:/usr/src/app/ArcGISExperienceBuilder/client/tsconfig.json
-      - ./client_webpack:/usr/src/app/ArcGISExperienceBuilder/client/webpack
-
       # Volume for user-added client data
-      - ./client_local:/usr/src/app/ArcGISExperienceBuilder/client_local
-
-      # Volume for the build output that should be persistent but not exposed to users
-      - client_build:/usr/src/app/ArcGISExperienceBuilder/client/build
-
-volumes:
-  client_build:
+      - ./client:/usr/src/app/ArcGISExperienceBuilder/client
