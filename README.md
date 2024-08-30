@@ -45,8 +45,14 @@ Instead, this repo provides
   "start": "cross-env EXB_HTTP_PORT=4000 EXB_HTTPS_PORT=4001 NODE_ENV=production node src/server",
   ```
 * Run ``docker-compose build`` to build the container.
-* To share with your peers, export the container by running ``docker save -o <image-file-name>.tar <image-name>:tag``, send them ``.tar`` file and the ``docker-compose.yml``, as this file contains the volume mappings etc.
-  * What, you don't know your image name? Run ``docker images`` on the console to get a nice list.
+* To share with your peers, 
+  * export the container by running ``docker save -o <image-file-name>.tar <image-name>:tag``, 
+  * modify your ``docker-compose.yml`` file by uncommenting the following line and filling in your exported image name and tag: 
+    ```
+    # image: <image-file-name>:<tag>  # Reference the pre-built image
+    ```
+  * deliver ``.tar`` file and the ``docker-compose.yml``, as this file contains the volume mappings etc.
+  * What, you don't know your image name and tag? Run ``docker images`` on the console to get a nice list.
 
 ### Run it and develop
 * If you got a ``.tar`` and a ``docker-compose.yml`` file with an image and you want to import it, run ``docker load -i <image-file-name>.tar``.

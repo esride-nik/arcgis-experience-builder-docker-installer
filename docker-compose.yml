@@ -1,6 +1,6 @@
 services:
   exb:
-    build: .
+    # image: your_image_name:your_tag  # Reference the pre-built image
     ports:
       - "4000:4000"
       - "4001:4001"
