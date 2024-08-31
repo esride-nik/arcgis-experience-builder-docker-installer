@@ -1,6 +1,7 @@
 services:
   exb:
-    # image: your_image_name:your_tag  # Reference the pre-built image
+    build: .
+    image: arcgis-exb-115:115
     ports:
       - "4000:4000"
       - "4001:4001"

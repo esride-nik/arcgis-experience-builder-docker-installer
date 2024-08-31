@@ -47,7 +47,7 @@ Instead, this repo provides
 * Run ``docker-compose build`` to build the container.
 * To share with your peers, 
   * export the container by running ``docker save -o <image-file-name>.tar <image-name>:tag``, 
-  * modify your ``docker-compose.yml`` file by uncommenting the following line and filling in your exported image name and tag: 
+  * modify your ``docker-compose.yml`` file by commenting out the ``build: .`` line, uncommenting the following line and filling in your exported image name and tag: 
     ```
     # image: <image-file-name>:<tag>  # Reference the pre-built image
     ```
@@ -70,6 +70,7 @@ The container uses ExB version 1.15 and the [offically recommended Node version 
 
 * include editing ``server/package.json`` in ``install.sh``
 * include the ports in the ``.env`` file to make them configurable
+* script to export image to sub-folder and add modified docker-compose.yml
 
 ### Side note
 
