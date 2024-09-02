@@ -1,13 +1,3 @@
-<style>
-  table th {
-    background-color: #555;
-  }
-  table td:first-child {
-    background-color: #555;
-    font-weight:bold;
-  }
-</style>
-
 # Running ArcGIS Experience Builder on Docker
 
 ArcGIS Experience Builder (ExB) is Esri's WYSIWYG Editor for Web GIS applications. The developer edition (DevEd) enables developers to create their own custom widgets and themes. The installation routine requires a couple of steps that I tried to wrap in an easy installation routine and put in a container.
