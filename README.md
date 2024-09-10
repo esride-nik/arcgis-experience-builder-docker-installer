@@ -2,7 +2,21 @@
 
 ArcGIS Experience Builder (ExB) is Esri's WYSIWYG Editor for Web GIS applications. The developer edition (DevEd) enables developers to create their own custom widgets and themes. The installation routine requires a couple of steps that I tried to wrap in an easy installation routine and put in a container.
 
-## Motivation
+## Motivation- [Running ArcGIS Experience Builder on Docker](#running-arcgis-experience-builder-on-docker)
+- [Running ArcGIS Experience Builder on Docker](#running-arcgis-experience-builder-on-docker)
+  - [Motivation- Running ArcGIS Experience Builder on Docker](#motivation--running-arcgis-experience-builder-on-docker)
+    - [The Node version](#the-node-version)
+    - [The installation process](#the-installation-process)
+    - [The development runtime](#the-development-runtime)
+  - [How it works](#how-it-works)
+  - [How to use](#how-to-use)
+    - [Installation](#installation)
+    - [Run it and develop](#run-it-and-develop)
+  - [Current status](#current-status)
+    - [ExB version 1.15 using Node 20](#exb-version-115-using-node-20)
+    - [TODOs](#todos)
+    - [Side note](#side-note)
+
 
 As a developer, I want to install my dev environment hassle-free and nicely separated from everything else going on on my machine, including the chance of trace-free removal. If you can't or don't want to install anything at all, [that's a different story](https://code.visualstudio.com/docs/devcontainers/containers). But assuming that basic tools like the IDE (I'm using VS Code) and Git are installed on the machine), I still need to install Node.JS on my machine, following the [default instructions](https://developers.arcgis.com/experience-builder/guide/install-guide/) for installing ExB DevEd.
 
