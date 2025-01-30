@@ -13,7 +13,7 @@ ArcGIS Experience Builder (ExB) is Esri's WYSIWYG Editor for Web GIS application
     - [Installation](#installation)
     - [Run it and develop](#run-it-and-develop)
   - [Current status](#current-status)
-    - [ExB version 1.15 using Node 20](#exb-version-115-using-node-20)
+    - [ExB version 1.16 using Node 20](#exb-version-116-using-node-20)
     - [TODOs](#todos)
     - [Side note](#side-note)
 
@@ -32,7 +32,7 @@ While developing, you need to run two processes in parallel: The ``server`` proc
 
 ## How it works
 
-I won't bundle ExB and all third-party sources in a container to put it on Docker hub. First of all, it would be a quite large container and second, that would count as redistribution of software that I don't own and I would surely run into licencing issues.
+I won't bundle ExB and all third-party sources in an image to put it on Docker hub. First of all, it would be a quite large and second, I'd like to avoid redistributing software that I don't own and running into licencing issues.
 
 Instead, this repo provides
 1. an installation script to run <b>the installation process</b> in just one step
@@ -43,7 +43,6 @@ Instead, this repo provides
 ### Installation
 
 * Run ``./install.sh``
-* Edit ``.env`` file to enter your local folders.
 * Edit ``server/package.json`` to use ports 4000 and 4001 in the start script:
   ```
   "start": "cross-env EXB_HTTP_PORT=4000 EXB_HTTPS_PORT=4001 NODE_ENV=production node src/server",
@@ -66,9 +65,9 @@ Instead, this repo provides
 
 ## Current status
 
-### ExB version 1.15 using Node 20
+### ExB version 1.16 using Node 20
 
-The container uses ExB version 1.15 and the [offically recommended Node version 20](https://developers.arcgis.com/experience-builder/guide/release-versions/) on the official [``node:20-slim``](https://hub.docker.com/_/node) image.
+The container uses ExB version 1.16 and the [offically recommended Node version 20](https://developers.arcgis.com/experience-builder/guide/release-versions/) on the official [``node:20-slim``](https://hub.docker.com/_/node) image.
 
 ### TODOs
 

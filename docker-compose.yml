@@ -1,7 +1,7 @@
 services:
   exb:
     build: .
-    image: arcgis-exb-115:115
+    image: arcgis-exb-116:116
     ports:
       - "4000:4000"
       - "4001:4001"
