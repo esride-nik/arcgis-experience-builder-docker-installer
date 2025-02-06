@@ -10,4 +10,4 @@ services:
       - ./apps:/usr/src/app/ArcGISExperienceBuilder/server/public/apps
 
       # Volume for user-added client data
-      - ./client:/usr/src/app/ArcGISExperienceBuilder/client
+      - ./client:/usr/src/app/ArcGISExperienceBuilder/client:consistent

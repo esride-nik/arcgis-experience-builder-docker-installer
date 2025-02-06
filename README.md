@@ -2,8 +2,14 @@
 
 ArcGIS Experience Builder (ExB) is Esri's WYSIWYG Editor for Web GIS applications. The developer edition (DevEd) enables developers to create their own custom widgets and themes. The installation routine requires a couple of steps that I tried to wrap in an easy installation routine and put in a container.
 
+## ToDos
+
+* try this for syncing: https://docs.docker.com/compose/how-tos/file-watch/
+* did I just break my webpack?
+
 ## Motivation- [Running ArcGIS Experience Builder on Docker](#running-arcgis-experience-builder-on-docker)
 - [Running ArcGIS Experience Builder on Docker](#running-arcgis-experience-builder-on-docker)
+  - [ToDos](#todos)
   - [Motivation- Running ArcGIS Experience Builder on Docker](#motivation--running-arcgis-experience-builder-on-docker)
     - [The Node version](#the-node-version)
     - [The installation process](#the-installation-process)
@@ -14,7 +20,7 @@ ArcGIS Experience Builder (ExB) is Esri's WYSIWYG Editor for Web GIS application
     - [Run it and develop](#run-it-and-develop)
   - [Current status](#current-status)
     - [ExB version 1.16 using Node 20](#exb-version-116-using-node-20)
-    - [TODOs](#todos)
+    - [TODOs](#todos-1)
     - [Side note](#side-note)
 
 
