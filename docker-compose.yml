@@ -10,5 +10,4 @@ services:
       - ./apps:/usr/src/app/ArcGISExperienceBuilder/server/public/apps
 
       # Volume for user-added client data
-      # TODO: cached for optimized mounting (due to issues with file watcher, triggering the TS compile process).. does it work?
-      - ./client:/usr/src/app/ArcGISExperienceBuilder/client:cached
+      - ./client:/usr/src/app/ArcGISExperienceBuilder/client

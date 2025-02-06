@@ -48,7 +48,7 @@ Instead, this repo provides
   "start": "cross-env EXB_HTTP_PORT=4000 EXB_HTTPS_PORT=4001 NODE_ENV=production node src/server",
   ```
 * Run ``docker-compose build`` to build the container.
-* To share with your peers, 
+* [optional] To share with your peers, 
   * export the container by running ``docker save -o <image-file-name>.tar <image-name>:tag``, 
   * modify your ``docker-compose.yml`` file by commenting out the ``build: .`` line, uncommenting the following line and filling in your exported image name and tag: 
     ```
@@ -58,8 +58,16 @@ Instead, this repo provides
   * What, you don't know your image name and tag? Run ``docker images`` on the console to get a nice list.
 
 ### Run it and develop
-* If you got a ``.tar`` and a ``docker-compose.yml`` file with an image and you want to import it, run ``docker load -i <image-file-name>.tar``.
-* Run ``docker-compose up`` to run the container. This should start the server process and the compiler / bundler process on client side. <ul>Please note: Be patient at the first start. All files from the standard client folder are gonna be copied from the container into a mapped folder on your hard drive, which points to ``<your_repository_folder>/client``! This step is gonna be skipped if this folder is not empty.</ul>
+* [optional] If you got a ``.tar`` and a ``docker-compose.yml`` file with an image and you want to import it, run ``docker load -i <image-file-name>.tar``.
+* Run ``docker-compose up`` to run the container. This should start the server process and the compiler / bundler process on client side. <ul>Please note: Be patient at the first start. All files from the standard client folder are gonna be copied from the container into a mapped folder on your hard drive, which points to ``<your_repository_folder>/client``! This step is gonna be skipped if this folder is not empty.<br/>When the process is done copying, you're going to see something like this in the console:
+```
+exb-1  | Starting application...                                                                                                                                                                                                  
+exb-1  | 
+exb-1  | > exb-client@1.16.0 start
+exb-1  | > cross-env NODE_ENV=development webpack --mode development --watch 
+```
+</ul>
+
 * If you're using ``web-extension-repos`` (which you should) to version control your only code, just clone them into the client folder as always. Try [my samples repo](https://github.com/esride-nik/ExB-workshop) if you don't believe me! To work with it, just keep using Git in these repos as you like.
 
 
